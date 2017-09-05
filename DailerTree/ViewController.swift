@@ -27,55 +27,46 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let countryCode = parse(phoneNumber)
-        print(countryCode)
+        if let countryCode = parse(phoneNumber) {
+            print(countryCode)
+        }
     }
     
     func parse(_ number: String) -> String? {
         var countryCode = "+"
         if let json = readJson() {
-            // Get the Number at Index 1
-            if let firstNumber = number.getCharacterAt(1) {
-                countryCode.append(firstNumber)
-                if let jsonFirstNumber = json[firstNumber] as? [String: Any] {
-                    print(countryCode)
-
-                    // Get the Number at Index 2
-                    if let secondNumber = number.getCharacterAt(2) {
-                        countryCode.append(secondNumber)
-                        if let jsonSecondNumber = jsonFirstNumber[secondNumber] as? [String: Any] {
-                            print(countryCode)
-                            if jsonSecondNumber["done"] as? Bool == true {
-                                return countryCode
-                            }
-                            
-                            // Get the Number at Index 3
-                            if let thirdNumber = number.getCharacterAt(3) {
-                                countryCode.append(thirdNumber)
-                                if let thirdJsonNumber = jsonSecondNumber[thirdNumber] as? [String: Any] {
-                                    print(countryCode)
-                                    if thirdJsonNumber["done"] as? Bool == true {
-                                        return countryCode
-                                    }
-                                    
-                                    // Get the Number at Index 4
-                                    if let fourthNumber = number.getCharacterAt(4) {
-                                        countryCode.append(fourthNumber)
-                                        if let jsonFourthNumber = thirdJsonNumber[fourthNumber] as? [String: Any] {
-                                            print(countryCode)
-                                            if jsonFourthNumber["done"] as? Bool == true {
-                                                return countryCode
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+            if let first = parseFirstNumber(number, json: json) {
+                countryCode.append(first["code"] as! String)
+                let json = first["json"] as! [String: Any]
+                print(json)
+            }
+            return countryCode
+        }
+        return nil
+    }
+    
+    private func parseFirstNumber(_ number: String, json: [String: Any]) -> [String: Any]? {
+        // Get the Number at Index 1
+        // Read the json
+        // check if the second number is there
+        // If found return 
+        // If not found just check if the done is there.
+        if let first = number.getCharacterAt(1) {
+            if let json_first = json[first] as? [String: Any] {
+                if let second = number.getCharacterAt(2) {
+                    if let temp = json_first[second] as? [String: Any] {
+                        return ["code": first, "json": temp]
+                    } else {
+                        if json_first["done"] as? Bool == true {
+                            print(true)
+                        } else {
+                            print(false)
                         }
                     }
                 }
             }
-            return countryCode
         }
+        
         return nil
     }
     
