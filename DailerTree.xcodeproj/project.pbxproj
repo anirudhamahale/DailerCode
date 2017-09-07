@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F6036511F615D740004F062 /* CountryCode.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F6036501F615D740004F062 /* CountryCode.json */; };
 		8FDD74DB1F5E6395009E0117 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD74DA1F5E6395009E0117 /* AppDelegate.swift */; };
 		8FDD74DD1F5E6395009E0117 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDD74DC1F5E6395009E0117 /* ViewController.swift */; };
 		8FDD74E01F5E6395009E0117 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FDD74DE1F5E6395009E0117 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F6036501F615D740004F062 /* CountryCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCode.json; sourceTree = "<group>"; };
 		8FDD74D71F5E6395009E0117 /* DailerTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailerTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FDD74DA1F5E6395009E0117 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FDD74DC1F5E6395009E0117 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				8FDD74DA1F5E6395009E0117 /* AppDelegate.swift */,
 				8FDD74DC1F5E6395009E0117 /* ViewController.swift */,
+				8F6036501F615D740004F062 /* CountryCode.json */,
 				8FDD74DE1F5E6395009E0117 /* Main.storyboard */,
 				8FDD74E11F5E6395009E0117 /* Assets.xcassets */,
 				8FDD74E31F5E6395009E0117 /* LaunchScreen.storyboard */,
@@ -126,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F6036511F615D740004F062 /* CountryCode.json in Resources */,
 				8FDD74E51F5E6395009E0117 /* LaunchScreen.storyboard in Resources */,
 				8FDD74E21F5E6395009E0117 /* Assets.xcassets in Resources */,
 				8FDD74E01F5E6395009E0117 /* Main.storyboard in Resources */,
@@ -305,6 +309,7 @@
 				8FDD74EB1F5E6395009E0117 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

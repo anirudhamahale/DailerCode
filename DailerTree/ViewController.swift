@@ -21,56 +21,49 @@ extension String {
 
 class ViewController: UIViewController {
 
-    let phoneNumber = "+1 6489637892151"
-    // let phoneNumber = "+919637892151"
+    // let phoneNumber = "+16489637892151"
+    let phoneNumber = "+919637892151"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        if let countryCode = parse(phoneNumber) {
+        if let countryCode = parseCountryCode(phoneNumber) {
             print(countryCode)
         }
     }
     
-    func parse(_ number: String) -> String? {
+    func parseCountryCode(_ phoneNumber: String) -> String? {
         var countryCode = "+"
-        if let json = readJson() {
-            if let first = parseFirstNumber(number, json: json) {
-                countryCode.append(first["code"] as! String)
-                let json = first["json"] as! [String: Any]
-                print(json)
-            }
-            return countryCode
+        let phoneDictionary = readJson()!
+        if phoneNumber.characters.count < 5 {
+            print("Invalid phone number, phone number should be atleast 5 characters.")
+            return nil
         }
-        return nil
-    }
-    
-    private func parseFirstNumber(_ number: String, json: [String: Any]) -> [String: Any]? {
-        // Get the Number at Index 1
-        // Read the json
-        // check if the second number is there
-        // If found return 
-        // If not found just check if the done is there.
-        if let first = number.getCharacterAt(1) {
-            if let json_first = json[first] as? [String: Any] {
-                if let second = number.getCharacterAt(2) {
-                    if let temp = json_first[second] as? [String: Any] {
-                        return ["code": first, "json": temp]
-                    } else {
-                        if json_first["done"] as? Bool == true {
-                            print(true)
-                        } else {
-                            print(false)
+        if let firstNumberOfPhone = phoneNumber.getCharacterAt(1) {
+            countryCode.append(firstNumberOfPhone)
+            if let firstNumberOfJson = phoneDictionary[firstNumberOfPhone] as? [String: Any] {
+                if firstNumberOfJson.keys.contains(phoneNumber.getCharacterAt(2)!) {
+                    countryCode.append(phoneNumber.getCharacterAt(2)!)
+                    let secondNumberOfJson = firstNumberOfJson[phoneNumber.getCharacterAt(2)!] as! [String: Any]
+                    if secondNumberOfJson.keys.contains(phoneNumber.getCharacterAt(3)!) {
+                        countryCode.append(phoneNumber.getCharacterAt(3)!)
+                        let thirdNumberOfJson = secondNumberOfJson[phoneNumber.getCharacterAt(3)!] as! [String: Any]
+                        if thirdNumberOfJson.keys.contains(phoneNumber.getCharacterAt(4)!) {
+                            countryCode.append(phoneNumber.getCharacterAt(4)!)
+                            let fourthNumberOfJson = thirdNumberOfJson[phoneNumber.getCharacterAt(4)!] as! [String: Any]
+                            if fourthNumberOfJson.keys.contains(phoneNumber.getCharacterAt(5)!) {
+                                countryCode.append(phoneNumber.getCharacterAt(5)!)
+                                // let fifthNumberOfJson = fourthNumberOfJson[phoneNumber.getCharacterAt(5)!] as! [String: Any]
+                            }
                         }
                     }
                 }
             }
         }
-        
-        return nil
+        return countryCode
     }
     
-    func readJson() -> [String: Any]? {
+    private func readJson() -> [String: Any]? {
         if let fileUrl = Bundle.main.url(forResource: "DailerCodeTree", withExtension: "json") {
             do {
                 let data = try Data(contentsOf: fileUrl)
